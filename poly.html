@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do Graphing</title>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      </script>
+    <script type="text/javascript"
+        src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        </script>
+    <script src="https://www.desmos.com/api/v1.6/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+    <script src="https://unpkg.com/mathjs@9.4.3/"></script>
+</head>
+
+<body>
+
+    <div id="extraText">Draw Graph: <span id="equa">$y = x^2$</span></div>
+    <button onclick="reveal()" id="reveal" class="but">Reveal graph</button>
+    <div id="calculator" style="width: 600px; height: 400px;"></div>
+    <button onclick="newGraph()" id="newGraph" class="but">New Graph</button>
+
+
+
+
+
+
+
+
+    <script>
+        function getRand(min, max) {
+            return Math.floor(Math.random() * (max - min) + min);
+        }
+        // MathJax.typeset()
+
+        var elt = document.getElementById('calculator');
+        var calculator = Desmos.GraphingCalculator(elt);
+        let b = "y=x^2"
+        updateStuff(b);
+
+
+
+
+
+        function reveal() {
+            document.getElementById("calculator").style.opacity = 1;
+        }
+
+        function newGraph() {
+            document.getElementById("calculator").style.opacity = 0;
+
+            let amountTerms = getRand(1,4)
+
+            let b = "y = ";
+            let r = 0;
+            for (let i = 0; i < amountTerms; i++) {
+                r = getRand(1,5);
+                sign = getRand(0,1) ? "-" : "+";
+                b += `(x ${sign} ${r})`
+
+
+            }
+
+
+            let q = math.parse(b)
+
+            q = math.simplify(q).toString();
+
+            updateStuff(q);
+
+
+
+        }
+
+        function updateStuff(b) {
+            calculator.setExpression({ id: 'graph1', latex: b });
+            document.getElementById('equa').innerHTML = "$" + b + "$";
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+
+
+
+
+
+
+        }
+
+
+
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            font-family: "Avenir";
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #extraText {
+            font-size: 3em;
+            position: fixed;
+            top: 1em;
+            color: grey;
+
+
+        }
+
+
+
+        #equa {
+            color: black;
+        }
+
+        #calculator {
+            opacity: 0;
+            margin: 2em;
+        }
+
+        .but {
+            font-size: 2em;
+            padding: 0.2em;
+
+
+        }
+    </style>
+
+</body>
+
+</html>
