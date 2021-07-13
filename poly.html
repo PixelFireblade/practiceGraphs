@@ -13,7 +13,7 @@
         src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
         </script>
     <script src="https://www.desmos.com/api/v1.6/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
-    <script src="https://unpkg.com/mathjs@9.4.3/"></script>
+    <script src="math.js"></script>
 </head>
 
 <body>
@@ -35,6 +35,7 @@
             return Math.floor(Math.random() * (max - min) + min);
         }
         // MathJax.typeset()
+        
 
         var elt = document.getElementById('calculator');
         var calculator = Desmos.GraphingCalculator(elt);
@@ -66,8 +67,9 @@
 
 
             let q = math.parse(b)
+            console.log(q)
 
-            q = math.simplify(q).toString();
+            // q = math.simplify(q).toString();
 
             updateStuff(q);
 
